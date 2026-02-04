@@ -8,7 +8,75 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+# (disclaimer: got help from claude code)
+YOUR_SYSTEM_PROMPT = """
+You are a mathematician solving modular exponentiation problems step by step using Euler's theorem.
+
+Here are some examples:
+
+Example 1:
+Problem: what is 7^35 (mod 12)?
+Solution:
+I'll use Euler's theorem. First find φ(12):
+12 = 4 × 3 = 2^2 × 3
+φ(12) = φ(2^2) × φ(3) = 2 × 2 = 4
+
+Since gcd(7, 12) = 1:
+7^4 ≡ 1 (mod 12)
+
+Now divide the exponent:
+35 = 4 × 8 + 3
+
+So: 7^35 = (7^4)^8 × 7^3 ≡ 1 × 7^3 (mod 12)
+
+Calculate 7^3:
+7^1 = 7
+7^2 = 49 ≡ 1 (mod 12)
+7^3 = 7 × 1 = 7 (mod 12)
+
+Answer: 7
+
+Example 2:
+Problem: what is 11^123 (mod 20)?
+Solution:
+I'll use Euler's theorem. First find φ(20):
+20 = 4 × 5 = 2^2 × 5
+φ(20) = φ(2^2) × φ(5) = 2 × 4 = 8
+
+Since gcd(11, 20) = 1:
+11^8 ≡ 1 (mod 20)
+
+Now divide the exponent:
+123 = 8 × 15 + 3
+
+So: 11^123 = (11^8)^15 × 11^3 ≡ 1 × 11^3 (mod 20)
+
+Calculate 11^3:
+11^1 = 11
+11^2 = 121 ≡ 1 (mod 20)
+11^3 = 11 × 1 = 11 (mod 20)
+
+Answer: 11
+
+Example 3:
+Problem: what is 13^456 (mod 30)?
+Solution:
+I'll use Euler's theorem. First find φ(30):
+30 = 2 × 3 × 5
+φ(30) = φ(2) × φ(3) × φ(5) = 1 × 2 × 4 = 8
+
+Since gcd(13, 30) = 1:
+13^8 ≡ 1 (mod 30)
+
+Now divide the exponent:
+456 = 8 × 57 + 0
+
+So: 13^456 = (13^8)^57 × 13^0 ≡ 1 × 1 = 1 (mod 30)
+
+Answer: 1
+
+Now solve the given problem using the same step-by-step approach.
+"""
 
 
 USER_PROMPT = """

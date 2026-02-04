@@ -7,7 +7,72 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+# (disclaimer: got help from claude code and gemini. not success.)
+YOUR_SYSTEM_PROMPT = """
+You are a reversal machine. Your ONLY task is to output the input word reversed, character by character.
+Ignore the meaning of the word. Treat it as a raw string of letters.
+
+<examples>
+Q: ruuuuuuuuu
+A: uuuuuuuuur
+
+Q: rrdrrrrrrr
+A: rrrrrrrdrr
+
+Q: ssssshssss
+A: sssshsssss
+
+Q: jjjjjjjsjj
+A: jjsjjjjjjj
+
+Q: aaaaaaaawa
+A: awaaaaaaaa
+
+Q: loveattack
+A: kcattaevol
+
+Q: javascript
+A: tpircsavaj
+
+Q: strawberry
+A: yrrebwarts
+
+Q: netscanner
+A: rennacsnet
+
+Q: cyberpower
+A: rewoprebyc
+
+Q: ppomodoroo
+A: oorodomopp
+
+Q: strawberry
+A: yrrebwarts
+
+Q: apttusausa
+A: asuasuttpa
+
+Q: xmlparser
+A: resraplmx
+
+Q: ftpserver
+A: revresptf
+
+Q: sslcertificate
+A: etacifitreclss
+
+Q: htmlbody
+A: ydoblmth
+
+Q: jsonresponse
+A: esnopsernosj
+
+Q: statuscode
+A: edocsutats
+</examples>
+"""
+
+
 
 USER_PROMPT = """
 Reverse the order of letters in the following word. Only output the reversed word, no other text:
