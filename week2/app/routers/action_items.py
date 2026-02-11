@@ -11,7 +11,7 @@ from ..schemas import (
     MarkDoneRequest,
     MarkDoneResponse,
 )
-from ..services.extract import extract_action_items
+from ..services.extract import extract_action_items, extract_action_items_llm
 
 router = APIRouter(prefix="/action-items", tags=["action-items"])
 
@@ -47,6 +47,24 @@ def list_all(note_id: int | None = None) -> list[ActionItemDetail]:
         )
         for r in rows
     ]
+
+
+@router.post("/extract-llm")
+def extract_llm(payload: ExtractRequest) -> ExtractResponse:
+    text = payload.text.strip()
+    if not text:
+        raise HTTPException(status_code=400, detail="text is required")
+
+    note_id: int | None = None
+    if payload.save_note:
+        note_id = db.insert_note(text)
+
+    items = extract_action_items_llm(text)
+    ids = db.insert_action_items(items, note_id=note_id)
+    return ExtractResponse(
+        note_id=note_id,
+        items=[ActionItemOut(id=i, text=t) for i, t in zip(ids, items)],
+    )
 
 
 @router.post("/{action_item_id}/done")
