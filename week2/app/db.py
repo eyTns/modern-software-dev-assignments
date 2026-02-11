@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import sqlite3
 from pathlib import Path
-from typing import Optional
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -64,7 +63,7 @@ def list_notes() -> list[sqlite3.Row]:
         return list(cursor.fetchall())
 
 
-def get_note(note_id: int) -> Optional[sqlite3.Row]:
+def get_note(note_id: int) -> sqlite3.Row | None:
     with get_connection() as connection:
         cursor = connection.cursor()
         cursor.execute(
@@ -75,7 +74,7 @@ def get_note(note_id: int) -> Optional[sqlite3.Row]:
         return row
 
 
-def insert_action_items(items: list[str], note_id: Optional[int] = None) -> list[int]:
+def insert_action_items(items: list[str], note_id: int | None = None) -> list[int]:
     with get_connection() as connection:
         cursor = connection.cursor()
         ids: list[int] = []
@@ -89,7 +88,7 @@ def insert_action_items(items: list[str], note_id: Optional[int] = None) -> list
         return ids
 
 
-def list_action_items(note_id: Optional[int] = None) -> list[sqlite3.Row]:
+def list_action_items(note_id: int | None = None) -> list[sqlite3.Row]:
     with get_connection() as connection:
         cursor = connection.cursor()
         if note_id is None:

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
@@ -12,12 +12,12 @@ router = APIRouter(prefix="/action-items", tags=["action-items"])
 
 
 @router.post("/extract")
-def extract(payload: Dict[str, Any]) -> Dict[str, Any]:
+def extract(payload: dict[str, Any]) -> dict[str, Any]:
     text = str(payload.get("text", "")).strip()
     if not text:
         raise HTTPException(status_code=400, detail="text is required")
 
-    note_id: Optional[int] = None
+    note_id: int | None = None
     if payload.get("save_note"):
         note_id = db.insert_note(text)
 
@@ -27,7 +27,7 @@ def extract(payload: Dict[str, Any]) -> Dict[str, Any]:
 
 
 @router.get("")
-def list_all(note_id: Optional[int] = None) -> List[Dict[str, Any]]:
+def list_all(note_id: int | None = None) -> list[dict[str, Any]]:
     rows = db.list_action_items(note_id=note_id)
     return [
         {
@@ -42,7 +42,7 @@ def list_all(note_id: Optional[int] = None) -> List[Dict[str, Any]]:
 
 
 @router.post("/{action_item_id}/done")
-def mark_done(action_item_id: int, payload: Dict[str, Any]) -> Dict[str, Any]:
+def mark_done(action_item_id: int, payload: dict[str, Any]) -> dict[str, Any]:
     done = bool(payload.get("done", True))
     db.mark_action_item_done(action_item_id, done)
     return {"id": action_item_id, "done": done}
