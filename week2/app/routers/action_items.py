@@ -51,5 +51,7 @@ def list_all(note_id: int | None = None) -> list[ActionItemDetail]:
 
 @router.post("/{action_item_id}/done")
 def mark_done(action_item_id: int, payload: MarkDoneRequest) -> MarkDoneResponse:
-    db.mark_action_item_done(action_item_id, payload.done)
+    rows_affected = db.mark_action_item_done(action_item_id, payload.done)
+    if rows_affected == 0:
+        raise HTTPException(status_code=404, detail="action item not found")
     return MarkDoneResponse(id=action_item_id, done=payload.done)
