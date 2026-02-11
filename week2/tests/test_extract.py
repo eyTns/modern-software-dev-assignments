@@ -3,7 +3,6 @@ from ollama import list as ollama_list
 
 from ..app.services.extract import extract_action_items, extract_action_items_llm
 
-
 # ── extract_action_items (기존 heuristic) ──
 
 def test_extract_bullets_and_checkboxes():

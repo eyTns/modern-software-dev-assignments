@@ -5,7 +5,6 @@ from fastapi import APIRouter, HTTPException
 from .. import db
 from ..schemas import NoteCreateRequest, NoteResponse
 
-
 router = APIRouter(prefix="/notes", tags=["notes"])
 
 

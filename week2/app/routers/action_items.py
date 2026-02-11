@@ -13,7 +13,6 @@ from ..schemas import (
 )
 from ..services.extract import extract_action_items
 
-
 router = APIRouter(prefix="/action-items", tags=["action-items"])
 
 

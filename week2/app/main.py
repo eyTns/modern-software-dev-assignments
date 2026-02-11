@@ -7,9 +7,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
+from . import db
 from .db import init_db
 from .routers import action_items, notes
-from . import db
 
 init_db()
 

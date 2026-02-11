@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import json
 import os
 import re
-import json
-from ollama import chat
+
 from dotenv import load_dotenv
+from ollama import chat
 
 load_dotenv()
 
