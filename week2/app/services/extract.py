@@ -87,10 +87,9 @@ def extract_action_items(text: str) -> list[str]:
 
 
 
-def extract_action_items_llm(text: str) -> list[str]:
+def extract_action_items_llm(text: str, model: str = "llama3.1:8b") -> list[str]:
     response = chat(
-        # model="deepseek-r1:1.5b",
-        model="llama3.1:8b",
+        model=model,
         messages=[
             {
                 "role": "system",
