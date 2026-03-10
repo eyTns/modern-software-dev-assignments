@@ -1,0 +1,4 @@
+songs.json
+.venv/
+__pycache__/
+*.pyc

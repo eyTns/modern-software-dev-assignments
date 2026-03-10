@@ -36,4 +36,24 @@ def client() -> Generator[TestClient, None, None]:
     with TestClient(app) as c:
         yield c
 
+    engine.dispose()
     os.unlink(db_path)
+
+
+@pytest.fixture()
+def db() -> Generator:
+    """Create a fresh database session for testing with direct db access"""
+    db_fd, db_path = tempfile.mkstemp()
+    os.close(db_fd)
+
+    engine = create_engine(f"sqlite:///{db_path}", connect_args={"check_same_thread": False})
+    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    Base.metadata.create_all(bind=engine)
+
+    session = TestingSessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
+        engine.dispose()
+        os.unlink(db_path)

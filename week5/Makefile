@@ -15,3 +15,6 @@ lint:
 
 seed:
 	PYTHONPATH=. python -c "from backend.app.db import apply_seed_if_needed; apply_seed_if_needed()"
+
+test-coverage:
+	PYTHONPATH=. pytest backend/tests --cov=backend --cov-report=html --cov-report=term --reruns 2
